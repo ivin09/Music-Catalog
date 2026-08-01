@@ -1,0 +1,28 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16-alpine
+    environment:
+      POSTGRES_DB: musiccatalog
+      POSTGRES_USER: musiccatalog
+      POSTGRES_PASSWORD: musiccatalog
+    ports:
+      - "5432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  backend:
+    build: ./backend
+    depends_on:
+      - postgres
+    environment:
+      SPRING_PROFILES_ACTIVE: prod
+      DATABASE_URL: jdbc:postgresql://postgres:5432/musiccatalog
+      DATABASE_USERNAME: musiccatalog
+      DATABASE_PASSWORD: musiccatalog
+      JWT_SECRET: local-dev-secret-please-change-32bytes-min
+    ports:
+      - "8080:8080"
+
+volumes:
+  pgdata:
