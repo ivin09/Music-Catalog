@@ -43,7 +43,7 @@ public class AnalyticsService {
                 .toList();
     }
 
-    // Line / bar chart data - releases grouped by year
+    // Line / bar chart data
     private List<Map<String, Object>> releasesByYear(List<LibraryItem> items) {
         Map<Integer, Long> counts = items.stream()
                 .filter(i -> i.getReleaseDate() != null)
@@ -54,7 +54,7 @@ public class AnalyticsService {
                 .toList();
     }
 
-    // Histogram - track duration buckets (in seconds)
+    // Histogram
     private List<Map<String, Object>> durationHistogramSeconds(List<LibraryItem> items) {
         int bucketSizeSec = 30;
         Map<Integer, Long> buckets = new TreeMap<>();
@@ -74,7 +74,7 @@ public class AnalyticsService {
         return result;
     }
 
-    // Horizontal bar chart data - most-saved artists
+    // Horizontal
     private List<Map<String, Object>> topArtists(List<LibraryItem> items, int limit) {
         Map<String, Long> counts = items.stream()
                 .collect(Collectors.groupingBy(LibraryItem::getArtistName, LinkedHashMap::new, Collectors.counting()));
@@ -86,7 +86,7 @@ public class AnalyticsService {
                 .toList();
     }
 
-    // Bar chart data - distribution of user ratings 1-5
+    // Bar chart data
     private List<Map<String, Object>> ratingDistribution(List<LibraryItem> items) {
         Map<Integer, Long> counts = new TreeMap<>();
         for (int i = 1; i <= 5; i++) counts.put(i, 0L);

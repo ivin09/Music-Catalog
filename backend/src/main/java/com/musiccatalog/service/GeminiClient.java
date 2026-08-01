@@ -10,16 +10,7 @@ import org.springframework.web.client.RestTemplate;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Optional upgrade path for the AI feature. If GEMINI_API_KEY is set, the deterministic
- * stats-based summary (built by AiInsightService) is rewritten into a short natural-language
- * paragraph by Gemini. If the key is absent, or the call fails for any reason, callers fall
- * back to the plain template summary - the app must work with zero external AI configuration.
- *
- * Deliberately avoids importing Jackson classes directly (ObjectMapper/JsonNode) - RestTemplate
- * is asked to deserialize straight into a java.util.Map, which Spring's own JSON message
- * converter handles internally without us needing jackson-databind on our compile classpath.
- */
+
 @Component
 public class GeminiClient {
 

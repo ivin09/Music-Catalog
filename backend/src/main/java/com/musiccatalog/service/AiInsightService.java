@@ -11,12 +11,6 @@ import org.springframework.stereotype.Service;
 import java.util.*;
 import java.util.stream.Collectors;
 
-/**
- * AI feature = "Trend summary + lightweight recommendations". The summary is always computed
- * deterministically from the user's own library stats first (zero external config required).
- * If GEMINI_API_KEY is set, GeminiClient rewrites that same summary into nicer prose - same
- * facts, optional upgrade - with a silent fallback to the template on any failure.
- */
 @Service
 @RequiredArgsConstructor
 public class AiInsightService {
@@ -72,8 +66,7 @@ public class AiInsightService {
         return sb.toString();
     }
 
-    // Content-based recommendation: search iTunes for more tracks by the user's top artist and
-    // top genre, filtering out anything already saved.
+
     private List<Map<String, Object>> buildRecommendations(List<LibraryItem> items, String topArtist, String topGenre) {
         Set<Long> alreadySaved = items.stream().map(LibraryItem::getAppleCatalogId).collect(Collectors.toSet());
         List<Map<String, Object>> recs = new ArrayList<>();
@@ -86,7 +79,7 @@ public class AiInsightService {
                 if (recs.size() >= 5) break;
             }
         } catch (Exception ignored) {
-            // Recommendations are best-effort; a flaky upstream call shouldn't break insights.
+
         }
 
         if (recs.size() < 8 && !"Unknown".equals(topGenre)) {

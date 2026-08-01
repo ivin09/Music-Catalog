@@ -29,8 +29,6 @@ public class ItunesService {
         this.restTemplate = restTemplate;
     }
 
-    // Proxy to the public iTunes Search API. We deliberately don't cache raw upstream
-    // responses beyond the request lifecycle - "library" caching happens via our own DB.
     public ItunesSearchResponse search(String term, String type, int limit) {
         if (term == null || term.isBlank()) {
             throw new BadRequestException("query parameter is required");

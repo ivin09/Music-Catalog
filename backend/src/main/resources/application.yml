@@ -1,17 +1,28 @@
 spring:
   application:
     name: music-catalog-platform
+
   profiles:
-    active: ${SPRING_PROFILES_ACTIVE:dev}
+    active: ${SPRING_PROFILES_ACTIVE:prod}
+
   jackson:
     default-property-inclusion: non_null
 
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+
+
 app:
   jwt:
-    secret: ${JWT_SECRET:dev-only-secret-change-me-please-32bytes-min}
+    secret: ${JWT_SECRET:dev-secret-change-this-key-for-hs256-12345}
     expiration-ms: ${JWT_EXPIRATION_MS:86400000}
+
   itunes:
     base-url: ${ITUNES_BASE_URL:https://itunes.apple.com}
+
   ai:
     gemini-api-key: ${GEMINI_API_KEY:}
     gemini-model: ${GEMINI_MODEL:gemini-2.5-flash}
